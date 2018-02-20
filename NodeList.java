@@ -27,19 +27,19 @@ public class NodeList
 		 * Get the next node
 		 * @return the next node in the list or null
 		 */
-		public Node getNext(){}
+		public Node getNext(){ return next;}
 		
 		/**
 		 * Get the previous node
 		 * @return the previous node in the list or null
 		 */
-		public Node getPrev(){}
+		public Node getPrev(){ return prev;}
 		
 		/**
 		 * Get the payload of the node, in this case the name
 		 * @return the name
 		 */
-		public String getName(){}
+		public String getName(){ return name;}
 	}
 	
 	private Node head; // node at the beginning of the list
@@ -58,19 +58,19 @@ public class NodeList
 	 * Get the beginning of the linked list
 	 * @return the head of the linked list, or null if the list's length is 0
 	 */
-	public Node getHead(){}
+	public Node getHead(){return head;}
 	
 	/**
 	 * Get the end of the linked list
 	 * @return the tail of the linked list, null if the list is 0, or the same as head if the length is 1
 	 */
-	public Node getTail(){}
+	public Node getTail(){return tail;}
 	
 	/**
 	 * Get the number of nodes in the linked list
 	 * @return the length of the linked list
 	 */
-	public int getLength(){}
+	public int getLength(){ return 0;}
 	
 	/**
 	 * Add a node to the beginning of the list
@@ -100,7 +100,7 @@ public class NodeList
 	 */
 	public boolean insert(int i, Node n)
 	{
-
+		return false;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class NodeList
 	 */
 	public Node remove(int i)
 	{
-
+		return null;
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class NodeList
 	 */
 	public boolean replace(int i, String data)
 	{
-
+		return false;
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class NodeList
 	 */
 	public Node get(int i)
 	{
-
+		return null;
 	}
 
 	/**
