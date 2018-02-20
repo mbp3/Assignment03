@@ -135,7 +135,7 @@ public class NodeList
 	}
 
 	/**
-	 * Print each node's payload
+	 * Print each node's payload as [nodeString, nodeString, ...] or [] if empty
 	 */
 	public void print()
 	{
