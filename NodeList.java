@@ -2,7 +2,7 @@
  * Your Name:
  * Date: 
  * The program provides the code needed to create a doubly linked list to store words in alphabetical order. 
- * YOU ARE NOT TO MODIFY THIS FILE FOR ASSIGNMENT 2!
+ * YOU ARE NOT TO MODIFY THIS FILE FOR THE FIRST PART
 */
 
 public class NodeList
