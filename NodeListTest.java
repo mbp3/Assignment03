@@ -23,7 +23,7 @@ class NodeListTest {
 	}
 	
 	@BeforeEach
-	static void initTestList() {
+	void initTestList() {
 		testList.insert(0, new NodeList.Node("Bravo"));
 		testList.insert(1, new NodeList.Node("Delta"));
 		testList.insert(2, new NodeList.Node("Echo"));
@@ -36,7 +36,7 @@ class NodeListTest {
 	}
 	
 	@AfterEach
-	static void destroyTestList() {
+	void destroyTestList() {
 		for(int i = 0; i < testList.getLength(); i ++)
 			testList.remove(i);
 	}
