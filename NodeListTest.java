@@ -37,8 +37,13 @@ class NodeListTest {
 	
 	@AfterEach
 	void destroyTestList() {
-		for(int i = 0; i < testList.getLength(); i ++)
+		int length = testList.getLength();
+		for(int i = 0; i < length; i++)
+		{
 			testList.remove(i);
+		}
+			
+		testList.setLength(0);
 	}
 	
 	/****** TEST CASES ******/
@@ -56,7 +61,7 @@ class NodeListTest {
 					 testList.getLength(),
 					 "Add Begging Test: addHead() does not increase list length.");
 		
-		assertTrue(testList.getHead().equals("Alpha"),
+		assertTrue(testList.getHead().getName().equals("Alpha"),
 				   "Add Begging Test: addHead() does not insert Alpha Node.");
 		
 		testList.print();
@@ -79,7 +84,7 @@ class NodeListTest {
 					 testList.getLength(),
 					 "Add End Test: addTail() does not increase list length.");
 		
-		assertTrue(testList.getTail().equals("Golf"),
+		assertTrue(testList.getTail().getName().equals("Golf"),
 				   "Add End Test: addTail() does not insert Golf Node.");
 		
 		testList.print();
@@ -102,7 +107,7 @@ class NodeListTest {
 		
 		assertAll("list inserts",
 				() -> assertEquals(6, testList.getLength()),
-				() -> assertEquals("Charlie", testList.get(2))
+				() -> assertEquals("Charlie", testList.get(2).getName())
 			);
 		
 		testList.print();
