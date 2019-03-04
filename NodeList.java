@@ -131,10 +131,10 @@ public class NodeList
 		{
 			Node h = get(i);
 			if (h == null) return false;
-			n.next = h.next;
-			h.next.prev = n;
-			h.next = n;
-			n.prev = h;
+			n.next = h;
+			n.prev = h.prev;
+			h.prev.next = n;
+			h.prev = n;
 			length++;
 		}
 		return true;
@@ -178,7 +178,7 @@ public class NodeList
 	{
 		if (i < 0 || i >= length) return null;
 		Node h = head;
-		for (int x = 1; x < i; x++) h = h.next;  
+		for (int x = 0; x < i; x++) h = h.next;  
 		return h;
 	}
 

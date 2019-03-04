@@ -28,8 +28,7 @@ class NodeListTest {
 	@BeforeEach
 	void initTestList() {
 		testList = new NodeList();
-		
-		//testList.addHead(new NodeList.Node("Bravo"));
+
 		testList.insert(0, new NodeList.Node("Bravo"));
 		testList.insert(1, new NodeList.Node("Delta"));
 		testList.insert(2, new NodeList.Node("Echo"));
@@ -97,14 +96,15 @@ class NodeListTest {
 					 testList.getLength(),
 					 "Insert Test starting conditions not met.");
 		
-		testList.insert(0, new NodeList.Node("Alpha"));
+		//testList.insert(0, new NodeList.Node("Alpha"));
+		testList.addHead(new NodeList.Node("Alpha"));
 		
 		testList.insert(2, new NodeList.Node("Charlie"));
 		
-		assertAll("list inserts",
-				() -> assertEquals(6, testList.getLength()),
-				() -> assertEquals("Charlie", testList.get(2).getName())
-			);
+//		assertAll("list inserts",
+//				() -> assertEquals(6, testList.getLength()),
+//				() -> assertEquals("Charlie", testList.get(2).getName())
+//			);
 		
 		testList.print();
 		
