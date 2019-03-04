@@ -8,46 +8,32 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class NodeListTest {
 
-	static NodeList testList = new NodeList();
-	static ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+	static NodeList testList;
+	static ByteArrayOutputStream outStream;
 	static PrintStream oldOutStream = System.out;
 	
 	/****** TEST SETUP ******/
 	
-	@Before
-	static void initStreams() {
+	@BeforeEach
+	 void initStreams() {
+		outStream = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outStream));
 	}
 	
-	@Before
+	@BeforeEach
 	void initTestList() {
-		testList.addHead(new NodeList.Node("Bravo"));
-		//testList.insert(0, new NodeList.Node("Bravo"));
-		//testList.insert(1, new NodeList.Node("Delta"));
-		//testList.insert(2, new NodeList.Node("Echo"));
-		//testList.insert(3, new NodeList.Node("Foxtrot"));
-	}
-	
-	@After
-	static void destroyStreams() {
-		System.setOut(oldOutStream);
-	}
-	
-	@AfterEach
-	void destroyTestList() {
-		int length = testList.getLength();
-		for(int i = 0; i < length; i++)
-		{
-			testList.remove(i);
-		}
+		testList = new NodeList();
+		
+		//testList.addHead(new NodeList.Node("Bravo"));
+		testList.insert(0, new NodeList.Node("Bravo"));
+		testList.insert(1, new NodeList.Node("Delta"));
+		testList.insert(2, new NodeList.Node("Echo"));
+		testList.insert(3, new NodeList.Node("Foxtrot"));
 	}
 	
 	/****** TEST CASES ******/
@@ -70,7 +56,10 @@ class NodeListTest {
 		
 		testList.print();
 		
-		assertEquals("Alpha\nBravo\nDelta\nEcho\nFoxtrot",
+		String expected = "Alpha\nBravo\nDelta\nEcho\nFoxtrot\n"
+						.replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+		
+		assertEquals(expected,
 					 outStream.toString(),
 					 "Add Begging Test: addHead() does not print Alpha in list.");
 	}
@@ -93,7 +82,10 @@ class NodeListTest {
 		
 		testList.print();
 		
-		assertEquals("Bravo\nDelta\nEcho\nFoxtrot\nGolf",
+		String expected = "Bravo\nDelta\nEcho\nFoxtrot\nGolf\n"
+							.replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+		
+		assertEquals(expected,
 					 outStream.toString(),
 					 "Add End Test: addTail() does not print Golf in list.");
 	}
@@ -116,7 +108,10 @@ class NodeListTest {
 		
 		testList.print();
 		
-		assertEquals("Alpha\nBravo\nCharlie\nDelta\nEcho\nFoxtrot",
+		String expected = "Alpha\nBravo\nCharlie\nDelta\nEcho\nFoxtrot\n"
+						  .replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+		
+		assertEquals(expected,
 					 outStream.toString(),
 					 "Insert Test: insert() does not print Alpha or Charlie in list.");
 	}
