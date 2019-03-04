@@ -1,3 +1,8 @@
+/**
+ * Your Name: Michael Poust
+ * Date: 3/4/2019
+*/
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
@@ -12,6 +17,8 @@ import org.junit.jupiter.api.Test;
 class NodeListTest {
 
 	static NodeList testList = new NodeList();
+	static NodeList testList2 = new NodeList();
+	static NodeList testList3 = new NodeList();
 	static ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 	static PrintStream oldOutStream = System.out;
 	
@@ -22,12 +29,22 @@ class NodeListTest {
 		System.setOut(new PrintStream(outStream));
 	}
 	
-	@BeforeEach
+	@Before
 	void initTestList() {
 		testList.insert(0, new NodeList.Node("Bravo"));
 		testList.insert(1, new NodeList.Node("Delta"));
 		testList.insert(2, new NodeList.Node("Echo"));
 		testList.insert(3, new NodeList.Node("Foxtrot"));
+		
+		testList2.insert(0, new NodeList.Node("Bravo"));
+		testList2.insert(1, new NodeList.Node("Delta"));
+		testList2.insert(2, new NodeList.Node("Echo"));
+		testList2.insert(3, new NodeList.Node("Foxtrot"));
+		
+		testList3.insert(0, new NodeList.Node("Bravo"));
+		testList3.insert(1, new NodeList.Node("Delta"));
+		testList3.insert(2, new NodeList.Node("Echo"));
+		testList3.insert(3, new NodeList.Node("Foxtrot"));
 	}
 	
 	@After
@@ -35,16 +52,16 @@ class NodeListTest {
 		System.setOut(oldOutStream);
 	}
 	
-	@AfterEach
-	void destroyTestList() {
-		int length = testList.getLength();
-		for(int i = 0; i < length; i++)
-		{
-			testList.remove(i);
-		}
-			
-		testList.setLength(0);
-	}
+//	@AfterEach
+//	void destroyTestList() {
+//		int length = testList.getLength();
+//		for(int i = 0; i < length; i++)
+//		{
+//			testList.remove(i);
+//		}
+//			
+//		testList.setLength(0);
+//	}
 	
 	/****** TEST CASES ******/
 	
@@ -75,19 +92,19 @@ class NodeListTest {
 	void addItemEndTest() {
 		// Should have 4 Items from initTestList()
 		assertEquals(4,
-					 testList.getLength(),
+					 testList2.getLength(),
 					 "Add End Test starting condtions not met.");
 		
 		testList.addTail(new NodeList.Node("Golf"));
 		
 		assertEquals(5,
-					 testList.getLength(),
+					 testList2.getLength(),
 					 "Add End Test: addTail() does not increase list length.");
 		
-		assertTrue(testList.getTail().getName().equals("Golf"),
+		assertTrue(testList2.getTail().getName().equals("Golf"),
 				   "Add End Test: addTail() does not insert Golf Node.");
 		
-		testList.print();
+		testList2.print();
 		
 		assertEquals("Bravo\nDelta\nEcho\nFoxtrot\nGolf",
 					 outStream.toString(),
@@ -98,19 +115,19 @@ class NodeListTest {
 	void insertItemAtPositionTest() {
 		// Should have 4 Items from initTestList()
 		assertEquals(4,
-					 testList.getLength(),
+					 testList3.getLength(),
 					 "Insert Test starting conditions not met.");
 		
-		testList.insert(0, new NodeList.Node("Alpha"));
+		testList3.insert(0, new NodeList.Node("Alpha"));
 		
-		testList.insert(2, new NodeList.Node("Charlie"));
+		testList3.insert(2, new NodeList.Node("Charlie"));
 		
 		assertAll("list inserts",
-				() -> assertEquals(6, testList.getLength()),
-				() -> assertEquals("Charlie", testList.get(2).getName())
+				() -> assertEquals(6, testList3.getLength()),
+				() -> assertEquals("Charlie", testList3.get(2).getName())
 			);
 		
-		testList.print();
+		testList3.print();
 		
 		assertEquals("Alpha\nBravo\nCharlie\nDelta\nEcho\nFoxtrot",
 					 outStream.toString(),

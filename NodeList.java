@@ -1,62 +1,49 @@
 /**
  * Your Name: Michael Poust
- * Date: 3/2/2019 
+ * Date: 3/4/2019
  * The program provides the code needed to create a doubly linked list to store words in alphabetical order. 
- * YOU ARE NOT TO MODIFY THIS FILE FOR THE FIRST PART
+ * YOU ARE REQUIRED TO MODIFY THIS FILE FOR ASSIGNMENT 2- Part 2!
 */
-
 public class NodeList
 {
 	public static class Node
 	{
-		
-		private Node next; // The node next to this node or Null if this node is at the end
-		private Node prev; // The node before this node or Null if this node is at the beginning
-		private String name = ""; // The string being stored by this node
 		/**
 		 * Constructor for a Node
-		 * Sets all attributes
 		 * @param data - The name
 		 */
 		public Node(String data)
 		{
 			name = data;
+			next = null;
+			prev = null;
 		}
+		
+		private Node next;
+		private Node prev;
+		private String name = "";
 		
 		/**
 		 * Get the next node
 		 * @return the next node in the list or null
 		 */
-		public Node getNext()
-		{ 
-			return next;
-		}
-
+		public Node getNext(){ return next; }
+		
 		/**
 		 * Get the previous node
 		 * @return the previous node in the list or null
 		 */
-		public Node getPrev()
-		{ 
-			return prev;
-		}
+		public Node getPrev(){ return prev; }
 		
 		/**
 		 * Get the payload of the node, in this case the name
 		 * @return the name
 		 */
-		public String getName()
-		{ 
-			return name;
-		}
+		public String getName(){ return name; }
 	}
 	
-	private Node head; // node at the beginning of the list
-	private Node tail; // node at the end of the list
-	private int length; // number of nodes in the list
-	
 	/**
-	 * Constructor for a LinkedList.  Initializes an empty list. Both nodes will be null and the length will be zero.
+	 * Constructor for a LinkedList
 	 */
 	public NodeList()
 	{
@@ -65,39 +52,27 @@ public class NodeList
 		length = 0;
 	}
 	
+	private Node head;
+	private Node tail;
+	private int length;
+	
 	/**
 	 * Get the beginning of the linked list
 	 * @return the head of the linked list, or null if the list's length is 0
 	 */
-	public Node getHead()
-	{
-		if(length == 0) return null;
-		return head;
-	}
+	public Node getHead(){ return head; }
 	
 	/**
 	 * Get the end of the linked list
 	 * @return the tail of the linked list, null if the list is 0, or the same as head if the length is 1
 	 */
-	public Node getTail()
-	{
-		if(length == 0) return null;
-		return tail;
-	}
-	
-	public void setLength(int l)
-	{
-		length = l;
-	}
+	public Node getTail(){ return tail; }
 	
 	/**
 	 * Get the number of nodes in the linked list
 	 * @return the length of the linked list
 	 */
-	public int getLength()
-	{ 
-		return length;
-	}
+	public int getLength(){ return length; }
 	
 	/**
 	 * Add a node to the beginning of the list
@@ -105,8 +80,8 @@ public class NodeList
 	 */
 	public void addHead(Node n)
 	{
-		if(length == 0)
-		{			
+		if (head == null)
+		{
 			head = n;
 			tail = n;
 		}
@@ -114,10 +89,10 @@ public class NodeList
 		{
 			head.prev = n;
 			n.next = head;
-			n.prev = null;
 			head = n;
 		}
-		length = length + 1;
+		
+		length++;
 	}
 	
 	/**
@@ -126,19 +101,19 @@ public class NodeList
 	 */
 	public void addTail(Node n)
 	{
-		if(length == 0)
+		if (head == null)
 		{
 			head = n;
 			tail = n;
 		}
 		else
 		{
-			n.next = null;
-			n.prev = tail;
 			tail.next = n;
+			n.prev = tail;
 			tail = n;
 		}
-		length = length + 1;
+		
+		length++;
 	}
 	
 	/**
@@ -151,24 +126,16 @@ public class NodeList
 	 */
 	public boolean insert(int i, Node n)
 	{
-		if(i < 0) return false;
-		else if(i >= length)
+		if (i >= length) addTail(n);
+		else
 		{
-			addTail(n);
-		}
-		else if(i == 0)
-		{
-			addHead(n);
-		}
-		else 
-		{
-			Node current = get(i);
-			Node currentNext = current.next;
-			current.next = n;
-			currentNext.prev = n;
-			n.next = currentNext;
-			n.prev = current;
-			length = length + 1;
+			Node h = get(i);
+			if (h == null) return false;
+			n.next = h.next;
+			h.next.prev = n;
+			h.next = n;
+			n.prev = h;
+			length++;
 		}
 		return true;
 	}
@@ -180,37 +147,12 @@ public class NodeList
 	 */
 	public Node remove(int i)
 	{
-		if(i == 0) 
-		{
-			Node current = head;
-			head = null;
-			current.next = head;
-			head.prev = null;
-			length = length - 1;
-			return current;
-		}
-		else if (i == length)
-		{
-			Node current = head;
-			tail = null;
-			current.prev = tail;
-			tail.next = null;
-			length = length - 1;
-			return current;
-		}
-		else if(i > 0 && i < length)
-		{
-			Node current = get(i);
-			Node currentPrev = current.prev;
-			Node currentNext = current.next;
-			currentPrev.next = currentNext;
-			currentNext.prev = currentPrev;
-			Node returnNode = current;
-			current = null;
-			length = length - 1;
-			return returnNode;
-		}
-		return null;
+		Node h = get(i);
+		if (h == null) return null;
+		if (h.prev != null) h.prev.next = h.next;
+		if (h.next != null) h.next.prev = h.prev;
+		length--;
+		return h;
 	}
 	
 	/**
@@ -221,13 +163,10 @@ public class NodeList
 	 */
 	public boolean replace(int i, String data)
 	{
-		if(i < 0 || i > length) return false;
-		else
-		{
-			Node current = get(i);
-			current.name = data;
-			return true;
-		}
+		Node h = get(i);
+		if (h == null) return false;
+		else h.name = data;
+		return true;
 	}
 	
 	/**
@@ -237,35 +176,25 @@ public class NodeList
 	 */
 	public Node get(int i)
 	{
-		if( length == 0 || i > length) return null;
-		else
-		{
-			Node current = head;
-			int count = 0;
-			while(current != null)
-			{
-				if(count == i) return current;
-				count++;
-				current = current.next;
-			}
-			return current;
-		}
+		if (i < 0 || i >= length) return null;
+		Node h = head;
+		for (int x = 1; x < i; x++) h = h.next;  
+		return h;
 	}
 
 	/**
-	 * Print each node's payload as [nodeString, nodeString, ...] or [] if empty
+	 * Print each node's payload
 	 */
 	public void print()
 	{
-		if(length == 0 ) System.out.println("");
+		if (length == 0) System.out.println("No nodes.");
 		else
 		{
-			Node current = head;
-			int count = 0;
-			while(current != null && count < length)
+			Node h = head;
+			for (int i = 0; i < length; i++)
 			{
-				System.out.println(current.getName());
-				current = current.next;
+				System.out.println(h.name);
+				h = h.next;
 			}
 		}
 	}
